@@ -94,7 +94,7 @@
 <main>
     <section class="new-author-container">
         <h1>
-            Welcome to <i>Rapid Jokers!</i> To contribute select a humor type for the
+            Welcome to <i>Rapid Jokes!</i> To contribute select a humor type for the
             joke and at least one author. <br />
             <a href="#/authors/create-author">Create new Author</a> or
             <button on:click={scrollToBottom}>contribute</button>
