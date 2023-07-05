@@ -6,8 +6,6 @@
     export let params;
     let authors = null;
     let joke = null;
-  
-
 
     (async () => {
         try {
@@ -16,7 +14,7 @@
                 return push("/not-found");
             }
             if (result === 500) {
-                return push("/server-error")
+                return push("/server-error");
             } else {
                 const { jokeResult, authorResult, votingResult } = result;
                 authors = authorResult;
@@ -61,8 +59,12 @@
                 <h2>authors:</h2>
                 <div class="authors">
                     {#if authors.length > 0}
-                        {#each authors as author}
-                            <span>{author.name},</span>
+                        {#each authors as author, i}
+                            {#if i === authors.length - 1}
+                                <span>{author.name}</span>
+                            {:else}
+                                <span>{author.name},</span>
+                            {/if}
                         {/each}
                     {/if}
                 </div>

@@ -26,7 +26,6 @@
             console.error(`error when retreiving author: ${error}`);
         }
     })();
-    
 </script>
 
 <main>
@@ -38,8 +37,12 @@
                 <h2>likes:</h2>
                 <div class="humor-preferences">
                     {#if author.humorPreferences.length > 0}
-                        {#each author.humorPreferences as hp}
-                            <span>{hp},</span>
+                        {#each author.humorPreferences as hp, i}
+                            {#if i === author.humorPreferences.length - 1}
+                                <span>{hp}</span>
+                            {:else}
+                                <span>{hp},</span>
+                            {/if}
                         {/each}
                     {/if}
                 </div>
