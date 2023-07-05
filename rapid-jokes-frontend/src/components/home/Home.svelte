@@ -34,24 +34,6 @@
         joke.humorType === "" ||
         joke.jokeTitle === "";
 
-    (async () => {
-        try {
-            const authorResult = await getAllAuthors();
-            authors = authorResult;
-        } catch (error) {
-            console.error(`error when retreiving authors: ${error}`);
-        }
-    })();
-
-    (async () => {
-        try {
-            const jokeResult = await getAllJokes();
-            jokeEntries = jokeResult;
-        } catch (error) {
-            console.error(`error when retreiving jokes: ${error}`);
-        }
-    })();
-
     function setJoke(e) {
         if (e.target.id === "authors") {
             try {
@@ -81,6 +63,24 @@
         selectedAuthors = filterEntity(e, selectedAuthors);
         joke.authorIds = filterEntity(e, joke.authorIds);
     }
+
+    onMount(async () => {
+        try {
+            const jokeResult = await getAllJokes();
+            jokeEntries = jokeResult;
+        } catch (error) {
+            console.error(`error when retreiving jokes: ${error}`);
+        }
+    });
+
+    onMount(async () => {
+        try {
+            const authorResult = await getAllAuthors();
+            authors = authorResult;
+        } catch (error) {
+            console.error(`error when retreiving authors: ${error}`);
+        }
+    })
 
     onMount(() => {
         jokesListContainer.scrollTo(0, jokesListContainer.scrollHeight);
