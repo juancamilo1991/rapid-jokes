@@ -106,6 +106,7 @@ app.post('/api/votings', async (req, res) => {
         const newHumorRanking = votedJoke.humorRanking + req.body.humorRate;
         const newCreativityRanking = votedJoke.creativityRanking + req.body.creativityRate;
         const newOverallRanking = (newHumorRanking * humorWeight + newCreativityRanking * creativityWeight) / (humorWeight + creativityWeight);
+        const roundedOverallRanking = Math.round(newOverallRanking * 10) / 10; // round to 1 decimal place
         const createdVoting = await votingsCollection.insertOne(voting);
         await authorsCollection.updateOne({_id: ObjectId(authorId)}, {$addToSet: {votings: createdVoting.insertedId}});
         await jokesCollection.updateOne(
@@ -114,7 +115,7 @@ app.post('/api/votings', async (req, res) => {
             $set: {
                 humorRanking: newHumorRanking,
                 creativityRanking: newCreativityRanking,
-                overallRanking: newOverallRanking
+                overallRanking: roundedOverallRanking
             },
             $addToSet: {votingIds: createdVoting.insertedId}
         });
